@@ -9,17 +9,18 @@ import { RootState } from "../../../redux/reduxModals/store";
 
 const SignUpPrompt = () => {
   
-  const username = useSelector((state:RootState)=> 
-    state.user.username
+  // since you are updating the name, only close the signUpPromt when it has displayed
+  const name = useSelector((state:RootState)=> 
+    state.user.name
   )
-  console.log(username)
+  
 
 
 
 
   return (
     
-    !username &&
+    !name &&
     <div
       className="bg-[#FaAF01] z-20 fixed bottom-0 w-full 
      right-0 left-0  h-[80px]  flex items-center gap-5 md:px-3 justify-center lg:justify-between lg:px-20 

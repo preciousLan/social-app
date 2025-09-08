@@ -1,4 +1,5 @@
 import React from "react";
+import SidebarUserInfo from "./SidebarUserInfo";
 import {
   HomeIcon,
   HashtagIcon,
@@ -71,21 +72,7 @@ const Sidebar = () => {
           </ul>
         </div>
 
-        <div className="absolute bottom-6 hover:bg-gray-500 hover:bg-opacity-10 flex items-center gap-3
-        p-3 rounded-full pe-6 transition-colors duration-250 xl:mr-10
-        ">
-          <Image
-            src={"/images/profile-pic.png"}
-            alt="user info"
-            width={36}
-            height={36}
-          />
-          <div className="hidden flex-col xl:flex ">
-            <span className="font-bold">Guest</span>
-            <span className="text-[#707E89] text-[14px]">@Guest0002454</span>
-          </div>
-
-        </div>
+       <SidebarUserInfo/>
       </nav>
     </>
   );

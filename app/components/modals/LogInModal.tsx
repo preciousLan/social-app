@@ -11,11 +11,25 @@ import {
 import { RootState, AppDispatch } from "@/redux/reduxModals/store";
 import { EyeIcon } from "@heroicons/react/24/solid";
 import { EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../firebase";
 
 const logInModal = () => {
   const [showPassword, setShowPassword] = useState(false);
   const isOpen = useSelector((state: RootState) => state.modals.logInModalOpen);
-  const dispatch:AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, SetPassword] = useState("");
+
+  async function handleLogin() {
+    await signInWithEmailAndPassword(auth, email, password);
+  }
+
+  async function handleGuest() {
+    await signInWithEmailAndPassword(auth, "guest@gmail.com", "123456");
+   
+  }
+  
 
   return (
     <>
@@ -29,7 +43,7 @@ const logInModal = () => {
 
       <Modal
         open={isOpen}
-        onClose={()=>isOpen}
+        onClose={() => dispatch(openLogInModal())}
         className="flex justify-center items-center"
       >
         <div
@@ -43,17 +57,17 @@ const logInModal = () => {
             }}
           />
 
-          <form className="pt-[20px] pb-20 px-4 sm:px-20 ">
+          <div className="pt-[20px] pb-20 px-4 sm:px-20 ">
             <h1 className=" text-3xl font-bold mb-10">Log in to Toofeek </h1>
 
             <div className="w-full space-y-5 mb-10">
-             
-
               <input
                 type="email"
                 placeholder="Email"
                 className="py-4 px-3 outline-none border border-gray-200 w-full h-[54px] rounded-[4px]
                  focus:border-[#f4AF01] transition "
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               ></input>
 
               <div className="w-full relative">
@@ -62,6 +76,8 @@ const logInModal = () => {
                   placeholder="Password"
                   className="py-4 px-3 outline-none border border-gray-200 w-full h-[54px] rounded-[4px]
                  focus:border-[#f4AF01] transition pr-[50px] "
+                  onChange={(e) => SetPassword(e.target.value)}
+                  value={password}
                 ></input>
 
                 <div onClick={() => setShowPassword(!showPassword)}>
@@ -75,17 +91,23 @@ const logInModal = () => {
             </div>
 
             <div className="flex flex-col items-center gap-5 text-white">
-              <button className="w-full bg-[#f4AF01] rounded-full p-3 h-[48px] shadow-sm">
+              <button
+                className="w-full bg-[#f4AF01] rounded-full p-3 h-[48px] shadow-sm"
+                onClick={() => handleLogin()}
+              >
                 {" "}
                 Log In{" "}
               </button>
               <span className="text-black"> Or</span>
-              <button className="w-full bg-[#f4AF01] rounded-full p-3 h-[48px] shadow-sm">
+              <button
+                className="w-full bg-[#f4AF01] rounded-full p-3 h-[48px] shadow-sm"
+                onClick={() => handleGuest()}
+              >
                 {" "}
                 Log In as Guest{" "}
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </Modal>
     </>
