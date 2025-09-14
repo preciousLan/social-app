@@ -6,9 +6,11 @@ import {
 import React from "react";
 import WhoTOFollow from "./WhoTOFollow";
 
+
 const Widgets = () => {
   return (
-    <div className=" p-3 hidden lg:flex flex-col gap-4 ml-7  max-h-screen w-[350px] " >
+    <div className=" p-3 hidden lg:flex flex-col gap-4 ml-7  h-screen w-[350px] sticky top-0" >
+     
       <div className="flex items-center gap-3 mt-2 p-3 bg-[#EFF3F4] rounded-full text-[#89959D] h-[44px]">
         <MagnifyingGlassIcon className="w-[20px] h-[20px]" />
         <input

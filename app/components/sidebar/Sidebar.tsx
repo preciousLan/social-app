@@ -15,7 +15,7 @@ import Image from "next/image";
 const Sidebar = () => {
   return (
     <>
-      <nav className="hidden sm:block  sticky top-0 p-3  xl:mx-10 max-h-screen xl:pl-10 ">
+      <nav className="hidden sm:block  sticky top-0 p-3  xl:mx-10 h-screen xl:pl-10 text-foreground ">
         <div className="relative">
           <div className="mb-4 2xl:ml-3">
             <Image

@@ -20,6 +20,7 @@ import { EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { signInUser } from "@/redux/reduxModals/userSlice";
 
 const SignUpModal = () => {
+
   const [email, setEmail] = useState("");
   const [password, SetPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -39,8 +40,9 @@ const SignUpModal = () => {
     "auth/wrong-password": "Incorrect password. Try again.",
   };
 
-  //create use account with email and password---------------------------------
+  //create user account with email and password---------------------------------
   async function handleSignUp() {
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -62,7 +64,9 @@ const SignUpModal = () => {
         })
       );
       dispatch(closeSignUpModal());
-    } catch (error: any) {
+    } 
+    
+    catch (error: any) {
       const message =
         errorMessages[error.code] || "Something went wrong. Please try again.";
       setError(message);
@@ -75,7 +79,7 @@ const SignUpModal = () => {
   useEffect(() => {
     const unSubcribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) return;
-      console.log(currentUser)
+      
 
       dispatch(
         signInUser({
@@ -98,19 +102,19 @@ const SignUpModal = () => {
     <>
       <button
         onClick={() => dispatch(openSignUpModal())}
-        className="w-full h-[48px] md:w-[88px] md:h-[40px] text-md md:text-sm font-bold bg-white rounded-full"
+        className="w-full h-[48px] md:w-[88px] md:h-[40px] text-md md:text-sm font-bold bg-white text-black rounded-full"
       >
         Sign Up
       </button>
 
       <Modal
         open={isOpen}
-        onClose={() => dispatch(openSignUpModal())}
+        onClose={() => {}}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <div
           className="w-full h-full pt-10 sm:pt-0 sm:w-[600px] sm:h-fit bg-white
-        sm:rounded-xl"
+        sm:rounded-xl outline-none"
         >
           <XMarkIcon
             className="w-7 mt-5 ml-5"

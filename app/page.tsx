@@ -1,8 +1,11 @@
-
+"use client"
 import Sidebar from "./components/sidebar/Sidebar";
 import Postfeed from "./components/postfeed/Postfeed";
 import Widgets from "./components/widgets/Widgets";
 import SignUpPrompt from "./components/SignUpPrompt/SignUpPrompt";
+import CommentModal from "./components/modals/CommentModal";
+
+
 
 export default function Home() {
   return (
@@ -15,6 +18,7 @@ export default function Home() {
         <Postfeed />
         <Widgets />
       </ div>
+      <CommentModal/>
       <SignUpPrompt />
     </>
   );
