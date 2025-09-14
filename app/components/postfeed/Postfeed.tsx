@@ -50,7 +50,7 @@ const Postfeed = () => {
         <ModeToggle />
       </div>
 
-      <Postinput />
+      <Postinput  />
 
       {name ? (
         posts.map((post) => 

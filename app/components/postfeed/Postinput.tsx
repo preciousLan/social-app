@@ -13,7 +13,11 @@ import { db } from "@/firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/reduxModals/store";
 
-const Postinput = () => {
+interface postInputProp {
+  insideModal?: boolean;
+}
+
+const Postinput = ({ insideModal }: postInputProp) => {
   const [text, setText] = useState("");
   const user = useSelector((state: RootState) => state.user);
 
@@ -33,15 +37,18 @@ const Postinput = () => {
   return (
     <div className="flex gap-5 items-start pl-3 ">
       <Image
-        src="/images/busybee-logo2.webp"
+        src={
+          insideModal ? "/images/profile-pic.png" : "/images/busybee-logo2.webp"
+        }
         width={44}
         height={44}
-        alt="Logo"
-        className="w-11 h-11"
+        alt={insideModal ? "profile-pic" : "logo"}
+        className="w-11 h-11 z-10 bg-white"
       />
       <div className="w-full pr-3 text-foreground">
+       
         <textarea
-          placeholder="whats happening!?"
+          placeholder={insideModal? "send your reply": "whats happening?"}
           className="w-full border-b border-gray-100
              resize-none outline-none py-2 text-lg bg-background"
           onChange={(e) => setText(e.target.value)}
@@ -70,7 +77,5 @@ const Postinput = () => {
     </div>
   );
 };
-
-
 
 export default Postinput;

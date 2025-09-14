@@ -1,5 +1,5 @@
 "use client";
-import React, {} from "react";
+import React from "react";
 import Image from "next/image";
 import {
   ChartBarIcon,
@@ -57,17 +57,15 @@ interface PostHeaderProps {
   name: string;
   timestamp?: Timestamp; //tells typescript timestamp optional
   text: string;
-  replyTo?: string
+  replyTo?: string;
 }
-
-
 
 export function PostHeader({
   username,
   name,
   timestamp,
   text,
-  replyTo
+  replyTo,
 }: PostHeaderProps) {
   return (
     <div className="flex gap-5 items-start ">
@@ -76,7 +74,7 @@ export function PostHeader({
         width={44}
         height={44}
         alt="propic"
-        className="w-11 h-11"
+        className="w-11 h-11 z-10 bg-white"
       />
       <div className="flex flex-col gap-1.5">
         <div className="flex gap-2 text-[15px]">
@@ -98,7 +96,7 @@ export function PostHeader({
             @{username}
           </span>
 
-         {/*only show "." and timestamp where there is timestamp */}
+          {/*only show "." and timestamp where there is timestamp */}
           {timestamp && (
             <>
               <span className="text-[#707E89]"> · </span>
@@ -111,15 +109,12 @@ export function PostHeader({
         </div>
 
         <p className="mr-6 text-justify"> {text}</p>
-   
-   {
-    replyTo && 
-    <span className="text-[15px] text-[#707E89]">
-      Replying to <span className="text-[#F4AF01]"> @{replyTo}</span>
-    </span>
-   }
 
-        
+        {replyTo && (
+          <span className="text-[15px] text-[#707E89]">
+            Replying to <span className="text-[#F4AF01]"> @{replyTo}</span>
+          </span>
+        )}
       </div>
     </div>
   );
