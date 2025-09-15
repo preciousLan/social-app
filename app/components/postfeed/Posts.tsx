@@ -10,11 +10,19 @@ import { ArrowUpTrayIcon } from "@heroicons/react/24/solid";
 import { DocumentData, Timestamp } from "firebase/firestore";
 import Moment from "react-moment";
 import { useDispatch } from "react-redux";
-import { openCommentModal } from "@/redux/reduxModals/modalSlice";
+import {
+  openCommentModal,
+  setCommentDetails,
+} from "@/redux/reduxModals/modalSlice";
 
 //install react-moment to turn timestamp into something we can use
 
-const Posts = ({ data }: DocumentData) => {
+interface postData {
+  data: DocumentData;
+  id: string;
+}
+
+const Posts = ({ data, id }: postData) => {
   const dispatch = useDispatch();
 
   return (
@@ -30,7 +38,20 @@ const Posts = ({ data }: DocumentData) => {
         <div className="flex gap-2 items-end">
           <ChatBubbleOvalLeftEllipsisIcon
             className="w-[22px] h-[22px] cursor-pointer hover:text-[#F4AF01] transition"
-            onClick={() => dispatch(openCommentModal())}
+            onClick={() => {
+              {
+                /* pass posts data to redux */
+              }
+              dispatch(
+                setCommentDetails({
+                  name: data.name,
+                  username: data.username,
+                  text: data.text,
+                  id: id,
+                })
+              );
+              dispatch(openCommentModal());
+            }}
           />
           <span className="text-[xs]"> 1</span>
         </div>
@@ -74,7 +95,7 @@ export function PostHeader({
         width={44}
         height={44}
         alt="propic"
-        className="w-11 h-11 z-10 bg-white"
+        className={`w-11 h-11 z-10 ${replyTo? "bg-white" : ""}`}
       />
       <div className="flex flex-col gap-1.5">
         <div className="flex gap-2 text-[15px]">

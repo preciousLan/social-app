@@ -22,9 +22,7 @@ const Postfeed = () => {
     QueryDocumentSnapshot<DocumentData, DocumentData>[]
   >([]);
 
-
-
-   useEffect(() => {
+  useEffect(() => {
     //1-choose the collection
     //2-create query to make post go in desc order by timestamp
     const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
@@ -37,8 +35,6 @@ const Postfeed = () => {
     return unsubscribe;
   }, []);
 
-
-
   return (
     <div className="flex-grow  overflow-y-auto border border-gray-200 text-foreground">
       <div
@@ -50,14 +46,14 @@ const Postfeed = () => {
         <ModeToggle />
       </div>
 
-      <Postinput  />
+      <Postinput />
 
       {name ? (
-        posts.map((post) => 
+        posts.map((post) => (
           // 4- render with .map() /mapping posts having acess to data
 
-          <Posts key={post.id} data={post.data()} />
-        )
+          <Posts key={post.id} data={post.data()} id={post.id} />
+        ))
       ) : (
         <div className="flex justify-center">
           <p className=" flex gap-2 w-fit text-center mt-20 p-3 bg-yellow-500 rounded-sm px-5 text-white  hover:bg-yellow-400 transition cursor-pointer">

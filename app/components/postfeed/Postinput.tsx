@@ -8,10 +8,11 @@ import {
   MapPinIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/reduxModals/store";
+import { closeCommentModal } from "@/redux/reduxModals/modalSlice";
 
 interface postInputProp {
   insideModal?: boolean;
@@ -20,8 +21,12 @@ interface postInputProp {
 const Postinput = ({ insideModal }: postInputProp) => {
   const [text, setText] = useState("");
   const user = useSelector((state: RootState) => state.user);
+  const commentDetails = useSelector(
+    (state: RootState) => state.modals.commentPostDetails
+  );
+  const dispatch = useDispatch()
 
-  //function to add to database(we created a posts collection in firestore)
+//.........function to add to database(we created a posts collection in firestore)
   async function sendPost() {
     await addDoc(collection(db, "posts"), {
       text: text,
@@ -32,6 +37,23 @@ const Postinput = ({ insideModal }: postInputProp) => {
       comments: [],
     });
     setText("");
+  }
+
+
+//..........function to to add to a subcategory. i.e reply to comments
+  async function sendComment() {
+    const postRef = doc(db, "posts", commentDetails.id);
+
+    await updateDoc(postRef,{
+      comments: arrayUnion({
+        name: user.name,
+        username: user.username,
+        text: text
+      })
+    })
+    setText("")
+    dispatch(closeCommentModal())
+    
   }
 
   return (
@@ -46,11 +68,13 @@ const Postinput = ({ insideModal }: postInputProp) => {
         className="w-11 h-11 z-10 bg-white"
       />
       <div className="w-full pr-3 text-foreground">
-       
+        
         <textarea
-          placeholder={insideModal? "send your reply": "whats happening?"}
-          className="w-full border-b border-gray-100
-             resize-none outline-none py-2 text-lg bg-background"
+          placeholder={insideModal ? "send your reply" : "whats happening?"}
+          className={`w-full border-b border-gray-100
+             resize-none outline-none py-2 text-lg ${
+               insideModal ? "bg-white" : "bg-background"
+             }`}
           onChange={(e) => setText(e.target.value)}
           value={text}
         />
@@ -67,7 +91,7 @@ const Postinput = ({ insideModal }: postInputProp) => {
           <button
             className="bg-[#F4AF01]  text-sm cursor-pointer w-[80px] h-[36px] rounded-full text-white disabled:bg-opacity-60 disabled:cursor-not-allowed"
             disabled={!text}
-            onClick={() => sendPost()}
+            onClick={() => insideModal? sendComment() : sendPost()}
           >
             {" "}
             Bumble

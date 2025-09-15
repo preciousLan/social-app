@@ -1,10 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
 const initialState = {
 signUpModalOpen : false,
 logInModalOpen : false,
-commentModalOpen: false
-}
+commentModalOpen: false,
+commentPostDetails: {
+name: "",
+username : "",
+text : "",
+id : ""
+
+}}
 
 const ModalSlice = createSlice({
   name: "modal",
@@ -29,6 +36,12 @@ const ModalSlice = createSlice({
   },
   closeCommentModal: (state)=>{
     state.commentModalOpen = false
+  },
+  setCommentDetails: (state, action)=>{
+state.commentPostDetails.name = action.payload.name
+state.commentPostDetails.username = action.payload.username
+state.commentPostDetails.text = action.payload.text
+state.commentPostDetails.id = action.payload.id
   }
 
 
@@ -37,6 +50,6 @@ const ModalSlice = createSlice({
 });
 
 export const {openSignUpModal,closeSignUpModal,openLogInModal,closeLogInModal,
-  openCommentModal,closeCommentModal} = ModalSlice.actions
+  openCommentModal,closeCommentModal,setCommentDetails} = ModalSlice.actions
 
 export default ModalSlice.reducer
