@@ -14,6 +14,7 @@ import {
   openCommentModal,
   setCommentDetails,
 } from "@/redux/reduxModals/modalSlice";
+import Link from "next/link";
 
 //install react-moment to turn timestamp into something we can use
 
@@ -27,12 +28,15 @@ const Posts = ({ data, id }: postData) => {
 
   return (
     <div className="p-3 mt-2 border-t  border-gray-100 text-foreground">
-      <PostHeader
-        username={data.username}
-        name={data.name}
-        timestamp={data.timestamp}
-        text={data.text}
-      />
+      
+      <Link href={"/" + id}>
+        <PostHeader
+          username={data.username}
+          name={data.name}
+          timestamp={data.timestamp}
+          text={data.text}
+        />
+      </Link>
 
       <div className=" ml-[62px] pt-6 flex gap-14 items-center justify-between mr-6">
         <div className="flex gap-2 items-end">
@@ -95,7 +99,7 @@ export function PostHeader({
         width={44}
         height={44}
         alt="propic"
-        className={`w-11 h-11 z-10 ${replyTo? "bg-white" : ""}`}
+        className={`w-11 h-11 z-10 ${replyTo ? "bg-white" : ""}`}
       />
       <div className="flex flex-col gap-1.5">
         <div className="flex gap-2 text-[15px]">

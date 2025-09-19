@@ -23,7 +23,7 @@ const Postfeed = () => {
   >([]);
 
   useEffect(() => {
-    //1-choose the collection
+    //1-get access to collection, choose the collection
     //2-create query to make post go in desc order by timestamp
     const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
 

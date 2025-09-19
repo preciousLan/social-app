@@ -40,7 +40,7 @@ const Postinput = ({ insideModal }: postInputProp) => {
   }
 
 
-//..........function to to add to a subcategory. i.e reply to comments
+//....function to to add to a subcategory. i.e reply to comments
   async function sendComment() {
     const postRef = doc(db, "posts", commentDetails.id);
 
